@@ -1,11 +1,13 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
+import shop from '@/api/shop';
+import { resolve } from 'url';
+import { rejects } from 'assert';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // data
     products: []
   },
 
@@ -17,9 +19,15 @@ export default new Vuex.Store({
   },
 
   actions: {
-    fetchProducts() {
-      // make the async api call
-      // run setProducts mutation
+    fetchProducts({ commit }) {
+      return new Promise((resolve, reject) => {
+        // make the async api call
+        // run setProducts mutation
+        shop.getProducts(products => {
+          commit('setProducts', products);
+          resolve();
+        });
+      });
     }
   },
 
