@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 Vue.use(Vuex);
 
-new Vuex.Store({
+export default new Vuex.Store({
   state: {
     // data
     products: []
@@ -11,20 +11,22 @@ new Vuex.Store({
 
   getters: {
     // computed properties
-    productsCount() {
-      //...
+    availableProducts(state, getters) {
+      return state.products.filter(product => product.inventory > 0);
     }
   },
 
   actions: {
     fetchProducts() {
-      //make the async api call
+      // make the async api call
+      // run setProducts mutation
     }
   },
 
   mutations: {
-    setProducts() {
+    setProducts(state, products) {
       //update products
+      state.products = products;
     }
   }
 });
